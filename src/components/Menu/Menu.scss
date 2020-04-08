@@ -1,0 +1,16 @@
+.ui.menu{
+    .ui.container{
+        .item{
+            border-left: 0 !important;
+            position: unset;
+            p{
+                background-color: white;
+                span{
+                color:black;
+                font-size: 20px;
+                font-weight: bold;
+               }
+            }
+        }
+    }
+}
