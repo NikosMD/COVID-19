@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Icon, Menu } from 'semantic-ui-react';
+import { Container, Menu } from 'semantic-ui-react';
 import './Menu.scss'
 import STYLE_LINK from "constants/constans"
 

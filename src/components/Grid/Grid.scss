@@ -1,31 +1,26 @@
 
 html, body {
-  background-image: url('/img/111.png') !important;
-}
+  // background-image: url('/img/111.png') !important;
+  background-image: linear-gradient(to right, #a3a3b1, #a3b3bf, #a8c2c5, #b9cfc5, #d3dac6);}
 
 .ui.container{
-  width: 80% !important;
+  width: 85% !important;
 }
 
-
-
-
-
-
-
-
+@media (max-width: 768px) {
+  .ui.container{
+    margin: 0 auto !important
+  }
+}
 
 p {
-  align-content: center;
-  background-color: #495285;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 6em;
-}
-p > span {
-  opacity: 0.4;
-  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 15px;
 }
 
+.dataColumn{
+  p{
+    margin-top: 30px;
+  }
+}
