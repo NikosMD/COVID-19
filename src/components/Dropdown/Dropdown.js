@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
+import { useStores } from "Hooks/useHooks";
 
 const friendOptions = [
   {
@@ -19,13 +20,19 @@ const friendOptions = [
   },
 ]
 
-const DropdownType = () => (
-  <Dropdown
-    placeholder='Select Friend'
-    fluid
-    selection
-    options={friendOptions}
-  />
-)
+const DropdownType = () => {
+  const { selectTypeStore } = useStores();
 
+console.log(selectTypeStore.selectType)
+  return ( 
+    <Dropdown
+      placeholder='Select Friend'
+      fluid
+      selection
+      options={friendOptions}
+      onChange={( e , { value })=>{selectTypeStore.handleChange(value)}}
+    />
+  )
+}
+ 
 export default DropdownType
