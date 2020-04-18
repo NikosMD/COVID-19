@@ -1,6 +1,6 @@
 import React from 'react';
 import Chart from "react-google-charts";
-import './Chart.scss'
+import './LineChart.scss'
 
 
 const LineChart = () => (
