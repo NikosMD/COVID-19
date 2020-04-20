@@ -1,29 +1,49 @@
-import React from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import React, { useEffect, useState } from "react";
+import { Dropdown } from "semantic-ui-react";
+import { useStores } from "Hooks/useHooks";
+import { observer } from "mobx-react";
 
-const options = [
-  { key: 'angular', text: 'Angular', value: 'angular' },
-  { key: 'css', text: 'CSS', value: 'css' },
-  { key: 'design', text: 'Graphic Design', value: 'design' },
-  { key: 'ember', text: 'Ember', value: 'ember' },
-  { key: 'html', text: 'HTML', value: 'html' },
-  { key: 'ia', text: 'Information Architecture', value: 'ia' },
-  { key: 'javascript', text: 'Javascript', value: 'javascript' },
-  { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
-  { key: 'meteor', text: 'Meteor', value: 'meteor' },
-  { key: 'node', text: 'NodeJS', value: 'node' },
-  { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
-  { key: 'python', text: 'Python', value: 'python' },
-  { key: 'rails', text: 'Rails', value: 'rails' },
-  { key: 'react', text: 'React', value: 'react' },
-  { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
-  { key: 'ruby', text: 'Ruby', value: 'ruby' },
-  { key: 'ui', text: 'UI Design', value: 'ui' },
-  { key: 'ux', text: 'User Experience', value: 'ux' },
-]
+const options = [];
 
-const DropdownExampleMultipleSelection = () => (
-  <Dropdown placeholder='Country' fluid multiple selection options={options} />
-)
+const DropdownExampleMultipleSelection = () => {
+  // const defaultOptions = ;
+  const [defaultOptions, setDefaultOptions] = useState([]);
+  useEffect(() => {
+    selectCountriesStore.handleChange(defaultOptions);
+    if (options[0]) setDefaultOptions([options[0].value, options[1].value]);
+  }, []);
 
-export default DropdownExampleMultipleSelection
+  const { selectCountriesStore, fetchDataStore } = useStores();
+
+  if (fetchDataStore.isLoaded) {
+    const allDataCountry = fetchDataStore.dataOfCountry.Countries.reduce(
+      (acc, cv) => {
+        return { ...acc, [cv.Country]: cv };
+      },
+      {}
+    );
+    fetchDataStore.dataOfCountry.Countries.forEach((Country, i) => {
+      options.push({
+        key: i,
+        text: Country.Country,
+        value: Country.Country,
+      });
+    });
+    console.log(defaultOptions);
+    return (
+      <Dropdown
+        placeholder="Country"
+        fluid
+        multiple
+        selection
+        defaultValue={defaultOptions}
+        options={options}
+        onChange={(e, { value }) => {
+          selectCountriesStore.handleChange(value);
+        }}
+      />
+    );
+  } else return;
+};
+
+export default observer(DropdownExampleMultipleSelection);
