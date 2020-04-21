@@ -9,4 +9,8 @@ export class SelectCountriesStore {
     this.selectCountries = value;
   }
 
+  @action
+  addDefaultSelections(value) {
+    this.selectCountries = value;
+  }
 }

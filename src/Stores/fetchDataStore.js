@@ -1,8 +1,7 @@
 import { observable, action } from "mobx";
 
 export class FetchDataStore {
-  @observable.ref
-  dataOfCountry = [];
+  @observable.ref dataOfCountry = [];
   @observable isLoaded = false;
 
   @action
@@ -12,6 +11,7 @@ export class FetchDataStore {
       .then((data) => {
         this.dataOfCountry = data;
         this.isLoaded = !this.isLoaded;
+        console.log("kkkkk", this.dataOfCountry)
       });
   };
 }

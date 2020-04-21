@@ -3,47 +3,52 @@ import { Dropdown } from "semantic-ui-react";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
-const options = [];
-
 const DropdownExampleMultipleSelection = () => {
-  // const defaultOptions = ;
+  const options = [];
   const [defaultOptions, setDefaultOptions] = useState([]);
-  useEffect(() => {
-    selectCountriesStore.handleChange(defaultOptions);
-    if (options[0]) setDefaultOptions([options[0].value, options[1].value]);
-  }, []);
-
+  const [loadedDefault, setLoaded] = useState(false);
   const { selectCountriesStore, fetchDataStore } = useStores();
 
+  useEffect(() => {
+    setDefaultOptions(options.slice(0, 4).map(option => option.value));
+    selectCountriesStore.handleChange(defaultOptions);
+    setLoaded(true)
+  }, []);
+
+  selectCountriesStore.addDefaultSelections(defaultOptions);
+
+  
   if (fetchDataStore.isLoaded) {
-    const allDataCountry = fetchDataStore.dataOfCountry.Countries.reduce(
-      (acc, cv) => {
-        return { ...acc, [cv.Country]: cv };
-      },
-      {}
-    );
-    fetchDataStore.dataOfCountry.Countries.forEach((Country, i) => {
+    fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
       options.push({
-        key: i,
+        key: index,
         text: Country.Country,
         value: Country.Country,
       });
     });
-    console.log(defaultOptions);
-    return (
-      <Dropdown
-        placeholder="Country"
-        fluid
-        multiple
-        selection
-        defaultValue={defaultOptions}
-        options={options}
-        onChange={(e, { value }) => {
-          selectCountriesStore.handleChange(value);
-        }}
-      />
-    );
-  } else return;
+  }
+
+  return (
+    loadedDefault &&
+    <Dropdown
+      placeholder="Country"
+      fluid
+      multiple
+      selection
+      defaultValue={defaultOptions}
+      options={options}
+      onChange={(e, { value }) => {
+        selectCountriesStore.handleChange(value);
+      }}
+    />
+  );
 };
 
 export default observer(DropdownExampleMultipleSelection);
+
+   // const allDataCountry = fetchDataStore.dataOfCountry.Countries.reduce(
+    //   (acc, cv) => {
+    //     return { ...acc, [cv.Country]: cv };
+    //   },
+    //   {}
+    // );
