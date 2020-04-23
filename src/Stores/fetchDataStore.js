@@ -11,7 +11,6 @@ export class FetchDataStore {
       .then((data) => {
         this.dataOfCountry = data;
         this.isLoaded = !this.isLoaded;
-        console.log("kkkkk", this.dataOfCountry)
       });
   };
 }
