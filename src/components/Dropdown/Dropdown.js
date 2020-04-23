@@ -1,16 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
 const DropdownType = (props) => {
-  const defaultOptions = props.type.find((e, i) => i < 1).value;
-
-  useEffect(() => {
-    selectTypeStore.handleChange(defaultOptions);
-    selectCountryStore.handleChange(defaultOptions);
-  });
-  const { selectTypeStore, selectCountryStore } = useStores();
 
   return (
     <Dropdown
@@ -18,9 +10,10 @@ const DropdownType = (props) => {
       fluid
       selection
       options={props.type}
-      defaultValue={defaultOptions}
+      defaultValue={props.default}
       onChange={(e, { value }) => {
-        props.select.handleChange(value);
+        console.log(props)
+        props.onValueChange(value);
       }}
     />
   );

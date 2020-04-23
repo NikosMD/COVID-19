@@ -1,12 +1,16 @@
 import { observable, action } from "mobx";
 
 export class SelectTypeStore {
-  @observable
-  selectType = "";
+  @observable selectType = "";
+  @observable selectCountry = "";
 
   @action
   handleChange(value) {
-    console.log(this.selectType);
     this.selectType = value;
+  }
+
+  @action
+  handleCountryChange(value) {
+    this.selectCountry = value;
   }
 }

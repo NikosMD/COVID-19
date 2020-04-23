@@ -16,7 +16,6 @@ const DropdownExampleMultipleSelection = () => {
   }, []);
 
   selectCountriesStore.addDefaultSelections(defaultOptions);
-
   
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
@@ -45,10 +44,3 @@ const DropdownExampleMultipleSelection = () => {
 };
 
 export default observer(DropdownExampleMultipleSelection);
-
-   // const allDataCountry = fetchDataStore.dataOfCountry.Countries.reduce(
-    //   (acc, cv) => {
-    //     return { ...acc, [cv.Country]: cv };
-    //   },
-    //   {}
-    // );
