@@ -2,26 +2,37 @@ import React from "react";
 import Chart from "react-google-charts";
 import "./Map.scss";
 import { useStores } from "Hooks/useHooks";
+import { observer } from "mobx-react";
 
 const Map = (props) => {
-  const { selectCountryStore } = useStores();
-  console.log("vasea", selectCountryStore.selectCountry);
+  const { selectTypeStore, fetchDataStore } = useStores();
+
+  const allDataCountry = props.options.reduce((acc, cv) => {
+    return { ...acc, [cv.text]: cv };
+  }, {});
+
+  const currentCountry = allDataCountry[selectTypeStore.selectCountry];
+  const data = [["Country", "Cases", "Deaths"]];
+
+  if (fetchDataStore.isLoaded) {
+    fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
+      console.log(Country);
+      data.push([
+        Country.CountryCode,
+        Country.TotalConfirmed,
+        Country.TotalDeaths,
+      ]);
+    });
+  }
+
   return (
     <div className="map-chart">
       <Chart
         height={"300px"}
         chartType="GeoChart"
-        data={[
-          ["Country", "Cases", "Deaths"],
-          ["Germany", 200, 100],
-          ["United States", 300, 200],
-          ["Brazil", 400, 300],
-          ["Canada", 500, 600],
-          ["France", 600, 10000],
-          ["RU", 700, 500],
-        ]}
+        data={data}
         options={{
-          region: props.options ? props.options.key : "world",
+          region: currentCountry ? currentCountry.key : "world",
           colorAxis: { colors: ["red"] },
         }}
         // Note: you will need to get a mapsApiKey for your project.
@@ -32,4 +43,4 @@ const Map = (props) => {
     </div>
   );
 };
-export default Map;
+export default observer(Map);

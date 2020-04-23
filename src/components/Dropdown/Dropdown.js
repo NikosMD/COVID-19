@@ -3,7 +3,6 @@ import { Dropdown } from "semantic-ui-react";
 import { observer } from "mobx-react";
 
 const DropdownType = (props) => {
-
   return (
     <Dropdown
       placeholder="Select Friend"
@@ -12,7 +11,6 @@ const DropdownType = (props) => {
       options={props.type}
       defaultValue={props.default}
       onChange={(e, { value }) => {
-        console.log(props)
         props.onValueChange(value);
       }}
     />

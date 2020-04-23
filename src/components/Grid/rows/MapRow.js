@@ -7,7 +7,7 @@ import { useStores } from "Hooks/useHooks";
 
 const MapRow = () => {
   const { fetchDataStore, selectTypeStore } = useStores();
-  const options = [];
+  const options = [{ key: "world", text: "World", value: "world" }];
 
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
@@ -18,25 +18,25 @@ const MapRow = () => {
       });
     });
   }
- 
+
   const defaultOptions = options.find((e, i) => i < 1).value;
- 
+
   const handleValueChange = (value) => {
-    selectTypeStore.handleChange(value)
-  }
+    selectTypeStore.handleCountryChange(value);
+  };
 
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <p>
-          <Map options={[]} />
+          <Map options={options} />
         </p>
       </Grid.Column>
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <p>Please, select country</p>
-        <DropdownType 
-          type={options} 
-          select={selectTypeStore} 
+        <DropdownType
+          type={options}
+          select={selectTypeStore}
           onValueChange={handleValueChange}
           default={defaultOptions}
         />

@@ -10,13 +10,13 @@ const DropdownExampleMultipleSelection = () => {
   const { selectCountriesStore, fetchDataStore } = useStores();
 
   useEffect(() => {
-    setDefaultOptions(options.slice(0, 4).map(option => option.value));
+    setDefaultOptions(options.slice(0, 4).map((option) => option.value));
     selectCountriesStore.handleChange(defaultOptions);
-    setLoaded(true)
+    setLoaded(true);
   }, []);
 
   selectCountriesStore.addDefaultSelections(defaultOptions);
-  
+
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
       options.push({
@@ -28,18 +28,19 @@ const DropdownExampleMultipleSelection = () => {
   }
 
   return (
-    loadedDefault &&
-    <Dropdown
-      placeholder="Country"
-      fluid
-      multiple
-      selection
-      defaultValue={defaultOptions}
-      options={options}
-      onChange={(e, { value }) => {
-        selectCountriesStore.handleChange(value);
-      }}
-    />
+    loadedDefault && (
+      <Dropdown
+        placeholder="Country"
+        fluid
+        multiple
+        selection
+        defaultValue={defaultOptions}
+        options={options}
+        onChange={(e, { value }) => {
+          selectCountriesStore.handleChange(value);
+        }}
+      />
+    )
   );
 };
 

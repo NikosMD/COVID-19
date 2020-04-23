@@ -6,19 +6,18 @@ import DropdownType from "components/Dropdown";
 import { TYPE_OPTIONS } from "constants/constans";
 import { useStores } from "Hooks/useHooks";
 
-
 const PieRow = () => {
   const { selectTypeStore } = useStores();
 
   const defaultOptions = TYPE_OPTIONS.find((e, i) => i < 1).value;
 
   useEffect(() => {
-    selectTypeStore.handleCountryChange(defaultOptions);
+    selectTypeStore.handlePieTypeChange(defaultOptions);
   });
 
   const handleValueChange = (value) => {
-    selectTypeStore.handleCountryChange(value)
-  }
+    selectTypeStore.handlePieTypeChange(value);
+  };
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
@@ -26,11 +25,11 @@ const PieRow = () => {
       </Grid.Column>
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <p>Please, select type of info</p>
-        <DropdownType 
-          type={TYPE_OPTIONS} 
-          select={selectTypeStore} 
-          onValueChange={handleValueChange} 
-          default={ defaultOptions } 
+        <DropdownType
+          type={TYPE_OPTIONS}
+          select={selectTypeStore}
+          onValueChange={handleValueChange}
+          default={defaultOptions}
         />
         <p>Please, select regions</p>
         <DropdownExampleMultipleSelection />
