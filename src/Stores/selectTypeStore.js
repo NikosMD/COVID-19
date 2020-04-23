@@ -6,6 +6,7 @@ export class SelectTypeStore {
 
   @action
   handleChange(value) {
+    console.log(this.selectType);
     this.selectType = value;
   }
 }

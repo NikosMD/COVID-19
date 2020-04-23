@@ -3,44 +3,24 @@ import { Dropdown } from "semantic-ui-react";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
-const friendOptions = [
-  {
-    key: "Cases",
-    text: "Случаи",
-    value: "Случаи",
-  },
-  {
-    key: "Deaths",
-    text: "Deaths",
-    value: "Deaths",
-  },
-  {
-    key: "Recovered",
-    text: "Recovered",
-    value: "Recovered",
-  },
-  {
-    key: "Infected",
-    text: "Infected",
-    value: "Infected",
-  },
-];
-const defaultOptions = friendOptions[0].value;
-const DropdownType = () => {
+const DropdownType = (props) => {
+  const defaultOptions = props.type.find((e, i) => i < 1).value;
+
   useEffect(() => {
     selectTypeStore.handleChange(defaultOptions);
+    selectCountryStore.handleChange(defaultOptions);
   });
-  const { selectTypeStore } = useStores();
+  const { selectTypeStore, selectCountryStore } = useStores();
 
   return (
     <Dropdown
       placeholder="Select Friend"
       fluid
       selection
-      options={friendOptions}
+      options={props.type}
       defaultValue={defaultOptions}
       onChange={(e, { value }) => {
-        selectTypeStore.handleChange(value);
+        props.select.handleChange(value);
       }}
     />
   );
