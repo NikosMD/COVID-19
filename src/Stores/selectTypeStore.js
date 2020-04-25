@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 
 export class SelectTypeStore {
-  @observable selectType = "";
+  @observable selectType = "Confirmed";
   @observable selectCountry = "World";
   @observable selectTypePie = "";
 

@@ -7,7 +7,7 @@ import "./LineChart.scss";
 
 const LineChart = (props) => {
   const { selectTypeStore, selectCountriesStore } = useStores();
-
+  
   console.log(props.dates);
   return (
     <div className="line-chart">

@@ -6,9 +6,9 @@ document.head.appendChild(STYLE_LINK);
 
 export const TYPE_OPTIONS = [
   {
-    key: "Cases",
-    text: "Случаи",
-    value: "Случаи",
+    key: "Confirmed",
+    text: "Confirmed",
+    value: "Confirmed",
   },
   {
     key: "Deaths",
@@ -19,12 +19,7 @@ export const TYPE_OPTIONS = [
     key: "Recovered",
     text: "Recovered",
     value: "Recovered",
-  },
-  {
-    key: "Infected",
-    text: "Infected",
-    value: "Infected",
-  },
+  }
 ];
 
 export const GET_DEFAULT_VALUE = (options) =>

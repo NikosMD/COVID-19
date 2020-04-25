@@ -1,22 +1,16 @@
 import React, { useEffect } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Button } from "semantic-ui-react";
 import LineChart from "components/LineChart";
 import DropdownExampleMultipleSelection from "components/DropdownMutiply";
 import DropdownType from "components/Dropdown";
 import DataPicker from "components/DataPicker";
 import { TYPE_OPTIONS } from "constants/constans";
-import { moment } from "moment";
+import moment from "moment";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
 const ChartRow = () => {
-  const { selectTypeStore, selectDataStore } = useStores();
-
-  const defaultOptions = TYPE_OPTIONS.find((e, i) => i < 1).value;
-
-  useEffect(() => {
-    selectTypeStore.handleChange(defaultOptions);
-  });
+  const { selectTypeStore, selectCountriesStore, fetchDataStore, selectDateStore } = useStores();
 
   const handleValueChange = (value) => {
     selectTypeStore.handleChange(value);
@@ -33,6 +27,29 @@ const ChartRow = () => {
     return arr;
   };
 
+  const onSendClick = () => {
+  const data = [];
+  if (fetchDataStore.isLoaded) {
+    selectCountriesStore.selectCountries.forEach(current=>{
+      fetchDataStore.dataOfCountry.Countries.forEach(Country => {
+          Country.Country === current && data.push(Country.CountryCode);
+      })
+    })
+  }
+
+  if(!!selectDateStore.from && !!selectDateStore.to){
+    fetchDataStore.fetchData_allDay(
+      {
+        countrys: data, 
+        status: selectTypeStore.selectType,
+        from: moment(selectDateStore.from).format("YYYY-MM-DD"),
+        to: moment(selectDateStore.to).format("YYYY-MM-DD")
+      }
+    );
+  }
+}
+
+
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
@@ -46,12 +63,13 @@ const ChartRow = () => {
           type={TYPE_OPTIONS}
           select={selectTypeStore}
           onValueChange={handleValueChange}
-          default={defaultOptions}
+          default={selectTypeStore.selectType}
         />
         <p>Please, select countries</p>
         <DropdownExampleMultipleSelection />
         <p>Please, select data range</p>
         <DataPicker />
+        <Button content= "Update Dates" onClick={onSendClick}/>
       </Grid.Column>
     </Grid.Row>
   );

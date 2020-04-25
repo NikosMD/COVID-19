@@ -10,8 +10,10 @@ const DropdownExampleMultipleSelection = () => {
   const { selectCountriesStore, fetchDataStore } = useStores();
 
   useEffect(() => {
-    setDefaultOptions(options.slice(0, 4).map((option) => option.value));
-    selectCountriesStore.handleChange(defaultOptions);
+    if(!selectCountriesStore.selectCountries.length){
+      setDefaultOptions(options.slice(0, 4).map((option) => option.value));
+      selectCountriesStore.handleChange(defaultOptions);
+    }
     setLoaded(true);
   }, []);
 
@@ -26,7 +28,7 @@ const DropdownExampleMultipleSelection = () => {
       });
     });
   }
-
+  
   return (
     loadedDefault && (
       <Dropdown
