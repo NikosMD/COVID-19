@@ -1,10 +1,9 @@
 import React from "react";
 import { Container, Grid } from "semantic-ui-react";
 import "./Grid.scss";
-import ChartRow from "./rows/ChartRow"
-import MapRow from "./rows/MapRow"
-import PieRow from "./rows/PieRow"
-
+import ChartRow from "containers/ChartRow";
+import MapRow from "containers/MapRow";
+import PieRow from "containers/PieRow";
 
 const AnotherGridLayout = () => {
   return (

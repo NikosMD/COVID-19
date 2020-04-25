@@ -5,8 +5,10 @@ import { observer } from "mobx-react";
 
 import "./LineChart.scss";
 
-const LineChart = () => {
+const LineChart = (props) => {
   const { selectTypeStore, selectCountriesStore } = useStores();
+
+  console.log(props.dates);
   return (
     <div className="line-chart">
       <Chart
@@ -15,7 +17,7 @@ const LineChart = () => {
         loader={<div>Loading Chart</div>}
         data={[
           ["x", ...selectCountriesStore.selectCountries],
-          [0, 0, 0, 0, 0],
+          [0, 10000, 233333, 0, 0],
           [1, 10, 5, 15, 10],
           [2, 23, 15, 22, 12],
           [3, 17, 9, 23, 14],

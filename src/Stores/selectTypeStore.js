@@ -2,7 +2,7 @@ import { observable, action } from "mobx";
 
 export class SelectTypeStore {
   @observable selectType = "";
-  @observable selectCountry = "";
+  @observable selectCountry = "World";
   @observable selectTypePie = "";
 
   @action
@@ -14,7 +14,7 @@ export class SelectTypeStore {
   handleCountryChange(value) {
     this.selectCountry = value;
   }
-  
+
   @action
   handlePieTypeChange(value) {
     this.selectTypePie = value;

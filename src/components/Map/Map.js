@@ -16,7 +16,6 @@ const Map = (props) => {
 
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
-      console.log(Country);
       data.push([
         Country.CountryCode,
         Country.TotalConfirmed,

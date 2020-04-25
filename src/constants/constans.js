@@ -26,3 +26,8 @@ export const TYPE_OPTIONS = [
     value: "Infected",
   },
 ];
+
+export const GET_DEFAULT_VALUE = (options) =>
+  options.find((e, i) => i < 1).value;
+
+export const GET_COUNTRY = (options) => options.find((e, i) => i < 1).text;

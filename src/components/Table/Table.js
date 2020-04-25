@@ -17,12 +17,12 @@ const TableData = (props) => {
       </Table.Header>
       <Table.Body>
         <Table.Row>
-          <Table.Cell >Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>{props.cell_1}</Table.Cell>
+          <Table.Cell>{props.cell_2}</Table.Cell>
+          <Table.Cell>{props.cell_3}</Table.Cell>
+          <Table.Cell>{props.cell_4}</Table.Cell>
+          <Table.Cell>{props.cell_5}</Table.Cell>
+          <Table.Cell>{props.cell_6}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>

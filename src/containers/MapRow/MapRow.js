@@ -4,10 +4,12 @@ import Map from "components/Map";
 import DropdownType from "components/Dropdown";
 import Table from "components/Table";
 import { useStores } from "Hooks/useHooks";
+import { observer } from "mobx-react";
+import { GET_DEFAULT_VALUE, GET_COUNTRY } from "constants/constans.js";
 
 const MapRow = () => {
   const { fetchDataStore, selectTypeStore } = useStores();
-  const options = [{ key: "world", text: "World", value: "world" }];
+  const options = [{ key: "world", text: "World", value: "World" }];
 
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
@@ -19,11 +21,15 @@ const MapRow = () => {
     });
   }
 
-  const defaultOptions = options.find((e, i) => i < 1).value;
+  const defaultOptions = GET_DEFAULT_VALUE(options);
+
+  const getCountry = GET_COUNTRY(options);
 
   const handleValueChange = (value) => {
     selectTypeStore.handleCountryChange(value);
   };
+
+  console.log("valea", selectTypeStore.selectCountry);
 
   return (
     <Grid.Row columns={2}>
@@ -47,6 +53,12 @@ const MapRow = () => {
           header_4="Deaths"
           header_5="24 Hours"
           header_6="%"
+          cell_1={selectTypeStore.selectCountry}
+          cell_2=""
+          cell_3=""
+          cell_4=""
+          cell_5=""
+          cell_6=""
         />
         <Table
           header_1="Recovered"
@@ -55,10 +67,16 @@ const MapRow = () => {
           header_4="Infected"
           header_5="%"
           header_6="Date"
+          cell_1=""
+          cell_2=""
+          cell_3=""
+          cell_4=""
+          cell_5=""
+          cell_6=""
         />
       </Grid.Column>
     </Grid.Row>
   );
 };
 
-export default MapRow;
+export default observer(MapRow);
