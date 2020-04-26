@@ -11,13 +11,13 @@ const DropdownExampleMultipleSelection = () => {
 
   useEffect(() => {
     if(!selectCountriesStore.selectCountries.length){
-      setDefaultOptions(options.slice(0, 4).map((option) => option.value));
-      selectCountriesStore.handleChange(defaultOptions);
+      // setDefaultOptions(options.slice(0, 4).map((option) => option.value));
+      // selectCountriesStore.handleChange(defaultOptions);
     }
     setLoaded(true);
   }, []);
 
-  selectCountriesStore.addDefaultSelections(defaultOptions);
+  // selectCountriesStore.addDefaultSelections(defaultOptions);
 
   if (fetchDataStore.isLoaded) {
     fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
@@ -35,8 +35,9 @@ const DropdownExampleMultipleSelection = () => {
         placeholder="Country"
         fluid
         multiple
+        search
         selection
-        defaultValue={defaultOptions}
+        // defaultValue={defaultOptions}
         options={options}
         onChange={(e, { value }) => {
           selectCountriesStore.handleChange(value);
