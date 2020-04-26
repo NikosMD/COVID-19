@@ -10,6 +10,8 @@ import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
 const ChartRow = () => {
+  const data = [];
+
   const { selectTypeStore, selectCountriesStore, fetchDataStore, selectDateStore } = useStores();
 
   const handleValueChange = (value) => {
@@ -28,32 +30,31 @@ const ChartRow = () => {
   };
 
   const onSendClick = () => {
-  const data = [];
-  if (fetchDataStore.isLoaded) {
-    selectCountriesStore.selectCountries.forEach(current=>{
-      fetchDataStore.dataOfCountry.Countries.forEach(Country => {
-          Country.Country === current && data.push(Country.CountryCode);
+    if (fetchDataStore.isLoaded) {
+      selectCountriesStore.selectCountries.forEach(current=>{
+        fetchDataStore.dataOfCountry.Countries.forEach(Country => {
+            Country.Country === current && data.push(Country.CountryCode);
+        })
       })
-    })
-  }
+    }
 
-  if(!!selectDateStore.from && !!selectDateStore.to){
-    fetchDataStore.fetchData_allDay(
-      {
-        countrys: data, 
-        status: selectTypeStore.selectType,
-        from: moment(selectDateStore.from).format("YYYY-MM-DD"),
-        to: moment(selectDateStore.to).format("YYYY-MM-DD")
-      }
-    );
+    if(!!selectDateStore.from && !!selectDateStore.to){
+      fetchDataStore.fetchData_allDay(
+        {
+          countrys: data, 
+          status: selectTypeStore.selectType,
+          from: moment(selectDateStore.from).format("YYYY-MM-DD"),
+          to: moment(selectDateStore.to).format("YYYY-MM-DD")
+        }
+      );
+    }
   }
-}
-
 
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <LineChart
+          data={data}
           dates={getDaysArray(selectDateStore.from, selectDateStore.to)}
         />
       </Grid.Column>

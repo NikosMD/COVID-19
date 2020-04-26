@@ -8,6 +8,7 @@ const DropdownType = (props) => {
       placeholder="Select Friend"
       fluid
       selection
+      search
       options={props.type}
       defaultValue={props.default}
       onChange={(e, { value }) => {

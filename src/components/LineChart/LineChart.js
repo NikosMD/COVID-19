@@ -2,13 +2,29 @@ import React from "react";
 import Chart from "react-google-charts";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
-
 import "./LineChart.scss";
 
 const LineChart = (props) => {
-  const { selectTypeStore, selectCountriesStore } = useStores();
-  
-  console.log(props.dates);
+  const { selectTypeStore, selectCountriesStore, fetchDataStore } = useStores();
+
+  let result = [];
+
+  if(Object.keys(fetchDataStore.dataOfCountry_allDay).length === props.data.length){
+    result = props.dates.map(date=> {
+      const res = [];
+        res.push(date)
+          props.data.forEach(code => {
+            if(Object.keys(fetchDataStore.dataOfCountry_allDay[code]).length){
+              res.push(fetchDataStore.dataOfCountry_allDay[code][date])
+            }else{
+              res.push(0)
+            }
+          }
+        )
+      return res
+    })
+  }
+
   return (
     <div className="line-chart">
       <Chart
@@ -17,14 +33,7 @@ const LineChart = (props) => {
         loader={<div>Loading Chart</div>}
         data={[
           ["x", ...selectCountriesStore.selectCountries],
-          [0, 10000, 233333, 0, 0],
-          [1, 10, 5, 15, 10],
-          [2, 23, 15, 22, 12],
-          [3, 17, 9, 23, 14],
-          [4, 18, 10, 12, 18],
-          [5, 9, 5, 23, 90],
-          [6, 11, 3, 11, 12],
-          [7, 27, 19, 12, 33],
+          ...result
         ]}
         options={{
           hAxis: {
