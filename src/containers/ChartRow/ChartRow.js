@@ -8,9 +8,15 @@ import { TYPE_OPTIONS } from "constants/constans";
 import moment from "moment";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
+import "./ChartRow.scss";
 
 const ChartRow = () => {
-  const { selectTypeStore, selectCountriesStore, fetchDataStore, selectDateStore } = useStores();
+  const {
+    selectTypeStore,
+    selectCountriesStore,
+    fetchDataStore,
+    selectDateStore,
+  } = useStores();
 
   const handleValueChange = (value) => {
     selectTypeStore.handleChange(value);
@@ -28,27 +34,24 @@ const ChartRow = () => {
   };
 
   const onSendClick = () => {
-  const data = [];
-  if (fetchDataStore.isLoaded) {
-    selectCountriesStore.selectCountries.forEach(current=>{
-      fetchDataStore.dataOfCountry.Countries.forEach(Country => {
+    const data = [];
+    if (fetchDataStore.isLoaded) {
+      selectCountriesStore.selectCountries.forEach((current) => {
+        fetchDataStore.dataOfCountry.Countries.forEach((Country) => {
           Country.Country === current && data.push(Country.CountryCode);
-      })
-    })
-  }
+        });
+      });
+    }
 
-  if(!!selectDateStore.from && !!selectDateStore.to){
-    fetchDataStore.fetchData_allDay(
-      {
-        countrys: data, 
+    if (!!selectDateStore.from && !!selectDateStore.to) {
+      fetchDataStore.fetchData_allDay({
+        countrys: data,
         status: selectTypeStore.selectType,
         from: moment(selectDateStore.from).format("YYYY-MM-DD"),
-        to: moment(selectDateStore.to).format("YYYY-MM-DD")
-      }
-    );
-  }
-}
-
+        to: moment(selectDateStore.to).format("YYYY-MM-DD"),
+      });
+    }
+  };
 
   return (
     <Grid.Row columns={2}>
@@ -68,8 +71,14 @@ const ChartRow = () => {
         <p>Please, select countries</p>
         <DropdownExampleMultipleSelection />
         <p>Please, select data range</p>
-        <DataPicker />
-        <Button content= "Update Dates" onClick={onSendClick}/>
+        <div className="buttonContainer">
+          <DataPicker />
+          <Button
+            className="buttuonChartRow"
+            content="Update Dates"
+            onClick={onSendClick}
+          />
+        </div>
       </Grid.Column>
     </Grid.Row>
   );
