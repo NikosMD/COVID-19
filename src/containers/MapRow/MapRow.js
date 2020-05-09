@@ -5,78 +5,85 @@ import DropdownType from "components/Dropdown";
 import Table from "components/Table";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
-import { GET_DEFAULT_VALUE, GET_COUNTRY } from "constants/constans.js";
+import moment from "moment";
+import { GET_DEFAULT_VALUE } from "constants/constans.js";
 
 const MapRow = () => {
   const { fetchDataStore, selectTypeStore } = useStores();
   const options = [{ key: "world", text: "World", value: "World" }];
 
   if (fetchDataStore.isLoaded) {
-    fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
+    fetchDataStore.dataOfCountry.Countries.forEach((Country) => {
       options.push({
         key: Country.CountryCode,
         text: Country.Country,
         value: Country.Country,
       });
     });
+
+    const yesterday = moment().subtract(2, "days").format("YYYY-MM-DD");
+    const before_yesterday = moment().subtract(3, "days").format("YYYY-MM-DD");
+
+    // fetchDataStore.fetchData_Table({
+    //   country: selectTypeStore.selectCountry,
+    //   from: before_yesterday,
+    //   to: yesterday,
+    // });
+
+    console.log(fetchDataStore.dataOfCountry_Yesterday);
+
+    const defaultOptions = GET_DEFAULT_VALUE(options);
+
+    const handleValueChange = (value) => {
+      selectTypeStore.handleCountryChange(value);
+    };
+
+    return (
+      <Grid.Row columns={2}>
+        <Grid.Column mobile={16} tablet={16} computer={8}>
+          <p>
+            <Map options={options} />
+          </p>
+        </Grid.Column>
+        <Grid.Column mobile={16} tablet={16} computer={8}>
+          <p>Please, select country</p>
+          <DropdownType
+            type={options}
+            select={selectTypeStore}
+            onValueChange={handleValueChange}
+            default={defaultOptions}
+          />
+          <Table
+            header_1="Country"
+            header_2="Confirmed"
+            header_3="24 Hours"
+            header_4="Deaths"
+            header_5="24 Hours"
+            header_6="%"
+            cell_1={selectTypeStore.selectCountry}
+            cell_2=""
+            cell_3=""
+            cell_4=""
+            cell_5=""
+            cell_6=""
+          />
+          <Table
+            header_1="Recovered"
+            header_2="24 Hours"
+            header_3="%"
+            header_4="Infected"
+            header_5="%"
+            header_6="Date"
+            cell_1=""
+            cell_2=""
+            cell_3=""
+            cell_4=""
+            cell_5=""
+            cell_6=""
+          />
+        </Grid.Column>
+      </Grid.Row>
+    );
   }
-
-  const defaultOptions = GET_DEFAULT_VALUE(options);
-
-  const getCountry = GET_COUNTRY(options);
-
-  const handleValueChange = (value) => {
-    selectTypeStore.handleCountryChange(value);
-  };
-
-  console.log("valea", selectTypeStore.selectCountry);
-
-  return (
-    <Grid.Row columns={2}>
-      <Grid.Column mobile={16} tablet={16} computer={8}>
-        <p>
-          <Map options={options} />
-        </p>
-      </Grid.Column>
-      <Grid.Column mobile={16} tablet={16} computer={8}>
-        <p>Please, select country</p>
-        <DropdownType
-          type={options}
-          select={selectTypeStore}
-          onValueChange={handleValueChange}
-          default={defaultOptions}
-        />
-        <Table
-          header_1="Country"
-          header_2="Confirmed"
-          header_3="24 Hours"
-          header_4="Deaths"
-          header_5="24 Hours"
-          header_6="%"
-          cell_1={selectTypeStore.selectCountry}
-          cell_2=""
-          cell_3=""
-          cell_4=""
-          cell_5=""
-          cell_6=""
-        />
-        <Table
-          header_1="Recovered"
-          header_2="24 Hours"
-          header_3="%"
-          header_4="Infected"
-          header_5="%"
-          header_6="Date"
-          cell_1=""
-          cell_2=""
-          cell_3=""
-          cell_4=""
-          cell_5=""
-          cell_6=""
-        />
-      </Grid.Column>
-    </Grid.Row>
-  );
 };
-
 export default observer(MapRow);
