@@ -12,8 +12,19 @@ import "./ChartRow.scss";
 
 const ChartRow = () => {
   const data = [];
+  const options = [];
+  const defaultOptions = ["Moldova", "Italy"];
 
-  const { selectTypeStore, selectCountriesStore, fetchDataStore, selectDateStore } = useStores();
+  const {
+    selectTypeStore,
+    selectCountriesStore,
+    fetchDataStore,
+    selectDateStore,
+  } = useStores();
+
+  useEffect(() => {
+    selectCountriesStore.addDefaultSelections(defaultOptions);
+  }, []);
 
   const handleValueChange = (value) => {
     selectTypeStore.handleChange(value);
@@ -30,27 +41,33 @@ const ChartRow = () => {
     return arr;
   };
 
-  const onSendClick = () => {
-    if (fetchDataStore.isLoaded) {
-      selectCountriesStore.selectCountries.forEach(current=>{
-        fetchDataStore.dataOfCountry.Countries.forEach(Country => {
-            Country.Country === current && data.push(Country.CountryCode);
-        })
-      })
-    }
-
-    if(!!selectDateStore.from && !!selectDateStore.to){
-      fetchDataStore.fetchData_allDay(
-        {
-          countrys: data, 
-          status: selectTypeStore.selectType,
-          from: moment(selectDateStore.from).format("YYYY-MM-DD"),
-          to: moment(selectDateStore.to).format("YYYY-MM-DD")
-        }
-      );
-    }
+  if (fetchDataStore.isLoaded) {
+    fetchDataStore.dataOfCountry.Countries.forEach((Country, index) => {
+      options.push({
+        key: index,
+        text: Country.Country,
+        value: Country.Country,
+      });
+    });
   }
 
+  const onSendClick = () => {
+    selectCountriesStore.selectCountries.forEach((current) => {
+      fetchDataStore.dataOfCountry.Countries.forEach((Country) => {
+        Country.Country === current && data.push(Country.CountryCode);
+      });
+    });
+
+    if (!!selectDateStore.from && !!selectDateStore.to) {
+      fetchDataStore.fetchData_allDay({
+        countrys: selectCountriesStore.selectCountries,
+        status: selectTypeStore.selectType,
+        from: moment(selectDateStore.from).format("YYYY-MM-DD"),
+        to: moment(selectDateStore.to).format("YYYY-MM-DD"),
+      });
+    }
+  };
+  console.log("country", selectCountriesStore.selectCountries);
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
@@ -68,7 +85,13 @@ const ChartRow = () => {
           default={selectTypeStore.selectType}
         />
         <p>Please, select countries</p>
-        <DropdownExampleMultipleSelection />
+        <DropdownExampleMultipleSelection
+          options={options}
+          handleChange={(value) => {
+            return selectCountriesStore.handleChange(value);
+          }}
+          defaultValue={selectCountriesStore.selectCountries}
+        />
         <p>Please, select data range</p>
         <div className="buttonContainer">
           <DataPicker />

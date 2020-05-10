@@ -6,7 +6,6 @@ export class SelectCountryStore {
 
   @action
   handleChange(value) {
-    console.log(this.selectCountry);
     this.selectCountry = value;
   }
 }

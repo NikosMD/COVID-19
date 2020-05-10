@@ -9,23 +9,21 @@ const LineChart = (props) => {
 
   let result = [];
 
-  if (
-    Object.keys(fetchDataStore.dataOfCountry_allDay).length ===
-    props.data.length
-  ) {
-    result = props.dates.map((date) => {
-      const res = [];
-      res.push(date);
-      props.data.forEach((code) => {
-        if (Object.keys(fetchDataStore.dataOfCountry_allDay[code]).length) {
-          res.push(fetchDataStore.dataOfCountry_allDay[code][date]);
-        } else {
-          res.push(0);
-        }
-      });
-      return res;
+  result = props.dates.map((date) => {
+
+    const res = [];
+    res.push(date);
+    console.log(props.data);
+    props.data.forEach((code) => {
+      //   console.log("code");
+      //   if (Object.keys(fetchDataStore.dataOfCountry_allDay[code]).length) {
+      //     res.push(fetchDataStore.dataOfCountry_allDay[code][date]);
+      //   } else {
+      //     res.push(0);
+      //   }
     });
-  }
+    return res;
+  });
 
   return (
     <div className="line-chart">

@@ -11,6 +11,8 @@ const App = () => {
 
   useEffect(() => {
     fetchDataStore.fetchData();
+    fetchDataStore.fetchDataGlobal();
+    fetchDataStore.fetchDataRaion();
   }, []);
 
   return (

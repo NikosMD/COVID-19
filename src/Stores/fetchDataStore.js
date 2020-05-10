@@ -5,7 +5,10 @@ export class FetchDataStore {
   @observable.ref dataOfCountry = [];
   @observable.ref dataOfCountry_allDay = {};
   @observable.ref dataOfCountry_Yesterday = {};
+  @observable.ref dataOfGlobal = {};
+  @observable.ref dataOfRaion = [];
   @observable isLoaded = false;
+  @observable isLoadedGlobal = false;
 
   @action
   fetchData = () => {
@@ -14,6 +17,16 @@ export class FetchDataStore {
       .then((data) => {
         this.dataOfCountry = data;
         this.isLoaded = !this.isLoaded;
+      });
+  };
+
+  @action
+  fetchDataGlobal = () => {
+    fetch(`https://api.thevirustracker.com/free-api?global=stats`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.dataOfGlobal = data["results"][0];
+        this.isLoadedGlobal = !this.isLoadedGlobal;
       });
   };
 
@@ -60,8 +73,26 @@ export class FetchDataStore {
       .then((res) => res.json())
       .then((data) => {
         this.dataOfCountry_Yesterday = data;
-        console.log("qqqqq", data, from, to);
       });
     this.isLoaded = !this.isLoaded;
+  };
+
+  @action
+  fetchDataRaion = () => {
+    const body = {
+      operationName: "SimpleChartDistrictList",
+      variables: {},
+      query:
+        "query SimpleChartDistrictList {\n  simpleChartDistrictList {\n    district\n    district_ru\n    nr_cases\n    nr_recovered\n    nr_monitored\n    nr_deaths\n    __typename\n  }\n}\n",
+    };
+    fetch(`https://votum.md/graphql`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.dataOfRaion = data;
+      });
   };
 }
