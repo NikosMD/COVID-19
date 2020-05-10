@@ -98,7 +98,7 @@ const MapRow = () => {
             }
             cell_6={
               selectTypeStore.selectCountry === "World"
-                ? (tempData.total_deaths * 100) / tempData.total_cases
+                ? ((tempData.total_deaths * 100) / tempData.total_cases).toFixed(1)
                 : tempData[1] &&
                   ((tempData[1].Deaths * 100) / tempData[1].Confirmed).toFixed(
                     1
@@ -129,9 +129,9 @@ const MapRow = () => {
             }
             cell_3={
               selectTypeStore.selectCountry === "World"
-                ? (tempData.total_recovered * 100) / tempData.total_cases
+                ? ((tempData.total_recovered * 100) / tempData.total_cases).toFixed(1)
                 : tempData[1] &&
-                  (tempData[1].Recovered * 100) / tempData[1].Confirmed
+                  ((tempData[1].Recovered * 100) / tempData[1].Confirmed).toFixed(1)
             }
             cell_4={
               selectTypeStore.selectCountry === "World"
@@ -142,13 +142,13 @@ const MapRow = () => {
             }
             cell_5={
               selectTypeStore.selectCountry === "World"
-                ? (tempData.total_active_cases * 100) / tempData.total_cases
+                ? ((tempData.total_active_cases * 100) / tempData.total_cases).toFixed(1)
                 : tempData[1] &&
-                  ((tempData[1].Confirmed -
+                  (((tempData[1].Confirmed -
                     tempData[1].Recovered +
                     tempData[1].Deaths) *
                     100) /
-                    tempData[1].Confirmed
+                    tempData[1].Confirmed).toFixed(1)
             }
             cell_6={moment().format("YYYY-MM-DD")}
           />

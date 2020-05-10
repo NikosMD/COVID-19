@@ -10,8 +10,8 @@ import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 import "./ChartRow.scss";
 
+
 const ChartRow = () => {
-  const data = [];
   const options = [];
   const defaultOptions = ["Moldova", "Italy"];
 
@@ -24,8 +24,9 @@ const ChartRow = () => {
 
   useEffect(() => {
     selectCountriesStore.addDefaultSelections(defaultOptions);
-  }, []);
-
+    onValueChange()
+  }, [selectDateStore.from,selectDateStore.to]);
+  
   const handleValueChange = (value) => {
     selectTypeStore.handleChange(value);
   };
@@ -51,13 +52,8 @@ const ChartRow = () => {
     });
   }
 
-  const onSendClick = () => {
-    selectCountriesStore.selectCountries.forEach((current) => {
-      fetchDataStore.dataOfCountry.Countries.forEach((Country) => {
-        Country.Country === current && data.push(Country.CountryCode);
-      });
-    });
-
+  const onValueChange = () => {
+    console.log("Cub")
     if (!!selectDateStore.from && !!selectDateStore.to) {
       fetchDataStore.fetchData_allDay({
         countrys: selectCountriesStore.selectCountries,
@@ -67,12 +63,13 @@ const ChartRow = () => {
       });
     }
   };
-  console.log("country", selectCountriesStore.selectCountries);
+
+  
   return (
     <Grid.Row columns={2}>
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <LineChart
-          data={data}
+          data={selectCountriesStore.selectCountries}
           dates={getDaysArray(selectDateStore.from, selectDateStore.to)}
         />
       </Grid.Column>
@@ -95,11 +92,6 @@ const ChartRow = () => {
         <p>Please, select data range</p>
         <div className="buttonContainer">
           <DataPicker />
-          <Button
-            className="buttuonChartRow"
-            content="Update Dates"
-            onClick={onSendClick}
-          />
         </div>
       </Grid.Column>
     </Grid.Row>

@@ -10,7 +10,6 @@ const DataPicker = () => {
   const { selectDateStore } = useStores();
   const { from, to } = selectDateStore;
   const modifiers = { start: from, end: to };
-
   return (
     <div className="InputFromTo">
       <DayPickerInput
@@ -35,7 +34,7 @@ const DataPicker = () => {
         <DayPickerInput
           value={to}
           placeholder="To"
-          format="LL"
+          format="YYYY-MM-DD"
           formatDate={formatDate}
           parseDate={parseDate}
           dayPickerProps={{

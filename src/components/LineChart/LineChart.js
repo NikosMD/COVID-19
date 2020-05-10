@@ -8,22 +8,21 @@ const LineChart = (props) => {
   const { selectTypeStore, selectCountriesStore, fetchDataStore } = useStores();
 
   let result = [];
-
+// console.log(props)
   result = props.dates.map((date) => {
-
     const res = [];
     res.push(date);
-    console.log(props.data);
     props.data.forEach((code) => {
-      //   console.log("code");
-      //   if (Object.keys(fetchDataStore.dataOfCountry_allDay[code]).length) {
-      //     res.push(fetchDataStore.dataOfCountry_allDay[code][date]);
-      //   } else {
-      //     res.push(0);
-      //   }
+        if (fetchDataStore.dataOfCountry_allDay[code]) {
+          res.push(fetchDataStore.dataOfCountry_allDay[code][date]);
+        } else {
+          res.push(0);
+        }
     });
     return res;
   });
+
+  // console.log([["x", ...selectCountriesStore.selectCountries], ...result]);
 
   return (
     <div className="line-chart">
