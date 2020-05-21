@@ -105,6 +105,11 @@ const MapRow = () => {
                   )
             }
           />
+          {console.log(tempData.total_active_cases,tempData.total_cases -
+                    tempData.total_recovered -
+                    tempData.total_deaths -
+                    tempData.total_new_cases_today -
+                    tempData.total_new_deaths_today)}
           <Table
             header_1="Recovered"
             header_2="24 Hours"
@@ -119,12 +124,12 @@ const MapRow = () => {
             }
             cell_2={
               selectTypeStore.selectCountry === "World"
-                ? tempData.total_active_cases -
+                ? 
                   (tempData.total_cases -
                     tempData.total_recovered -
                     tempData.total_deaths -
                     tempData.total_new_cases_today -
-                    tempData.total_new_deaths_today)
+                    tempData.total_new_deaths_today)-tempData.total_active_cases 
                 : tempData[1] && tempData[1].Recovered - tempData[0].Recovered
             }
             cell_3={
