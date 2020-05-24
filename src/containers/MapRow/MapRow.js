@@ -17,7 +17,6 @@ const MapRow = () => {
   const yesterday = moment().subtract(2, "days").format("YYYY-MM-DD");
   const before_yesterday = moment().subtract(3, "days").format("YYYY-MM-DD");
 
-
   useEffect(() => {
     if (selectTypeStore.selectCountry === "World") {
       setTempData(fetchDataStore.dataOfGlobal);
@@ -98,18 +97,24 @@ const MapRow = () => {
             }
             cell_6={
               selectTypeStore.selectCountry === "World"
-                ? ((tempData.total_deaths * 100) / tempData.total_cases).toFixed(1)
+                ? (
+                    (tempData.total_deaths * 100) /
+                    tempData.total_cases
+                  ).toFixed(1)
                 : tempData[1] &&
                   ((tempData[1].Deaths * 100) / tempData[1].Confirmed).toFixed(
                     1
                   )
             }
           />
-          {console.log(tempData.total_active_cases,tempData.total_cases -
-                    tempData.total_recovered -
-                    tempData.total_deaths -
-                    tempData.total_new_cases_today -
-                    tempData.total_new_deaths_today)}
+          {console.log(
+            tempData.total_active_cases,
+            tempData.total_cases -
+              tempData.total_recovered -
+              tempData.total_deaths -
+              tempData.total_new_cases_today -
+              tempData.total_new_deaths_today
+          )}
           <Table
             header_1="Recovered"
             header_2="24 Hours"
@@ -124,19 +129,25 @@ const MapRow = () => {
             }
             cell_2={
               selectTypeStore.selectCountry === "World"
-                ? 
-                  (tempData.total_cases -
-                    tempData.total_recovered -
-                    tempData.total_deaths -
-                    tempData.total_new_cases_today -
-                    tempData.total_new_deaths_today)-tempData.total_active_cases 
+                ? tempData.total_cases -
+                  tempData.total_recovered -
+                  tempData.total_deaths -
+                  tempData.total_new_cases_today -
+                  tempData.total_new_deaths_today -
+                  tempData.total_active_cases
                 : tempData[1] && tempData[1].Recovered - tempData[0].Recovered
             }
             cell_3={
               selectTypeStore.selectCountry === "World"
-                ? ((tempData.total_recovered * 100) / tempData.total_cases).toFixed(1)
+                ? (
+                    (tempData.total_recovered * 100) /
+                    tempData.total_cases
+                  ).toFixed(1)
                 : tempData[1] &&
-                  ((tempData[1].Recovered * 100) / tempData[1].Confirmed).toFixed(1)
+                  (
+                    (tempData[1].Recovered * 100) /
+                    tempData[1].Confirmed
+                  ).toFixed(1)
             }
             cell_4={
               selectTypeStore.selectCountry === "World"
@@ -147,13 +158,18 @@ const MapRow = () => {
             }
             cell_5={
               selectTypeStore.selectCountry === "World"
-                ? ((tempData.total_active_cases * 100) / tempData.total_cases).toFixed(1)
+                ? (
+                    (tempData.total_active_cases * 100) /
+                    tempData.total_cases
+                  ).toFixed(1)
                 : tempData[1] &&
-                  (((tempData[1].Confirmed -
-                    tempData[1].Recovered +
-                    tempData[1].Deaths) *
-                    100) /
-                    tempData[1].Confirmed).toFixed(1)
+                  (
+                    ((tempData[1].Confirmed -
+                      tempData[1].Recovered +
+                      tempData[1].Deaths) *
+                      100) /
+                    tempData[1].Confirmed
+                  ).toFixed(1)
             }
             cell_6={moment().format("YYYY-MM-DD")}
           />

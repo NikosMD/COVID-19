@@ -25,9 +25,9 @@ const PieChart = () => {
       loader={<div>Loading Chart</div>}
       data={[["Raion", "Ill"], ...selectData]}
       options={{
-        legend: "none",
+        legend: "yes",
         pieSliceText: "label",
-        title: "Swiss Language Use (100 degree rotation)",
+        title: "Moldova Raion Statistics",
         pieStartAngle: 100,
       }}
       rootProps={{ "data-testid": "4" }}
