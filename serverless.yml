@@ -3,6 +3,7 @@ app: ms-thesis
 org: nikosmd
 component: website
 name: covid-19
+stage: dev
 
 inputs:
   src:
