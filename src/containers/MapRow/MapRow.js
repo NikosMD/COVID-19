@@ -49,9 +49,11 @@ const MapRow = () => {
         to: yesterday,
       });
     };
-    console.log( selectTypeStore.selectCountry === "World"
-    ? tempData.total_cases
-    : tempData[1] && tempData[1].Confirmed)
+    console.log(
+      selectTypeStore.selectCountry === "World"
+        ? tempData.total_cases
+        : tempData[1] && tempData[1].Confirmed
+    );
 
     return (
       <Grid.Row columns={2}>
@@ -94,7 +96,7 @@ const MapRow = () => {
             cell_5={
               selectTypeStore.selectCountry === "World"
                 ? tempData.total_new_deaths_today
-                : tempData[1] && tempData[1].Confirmed - tempData[0].Deaths
+                : tempData[1] && tempData[1].Deaths - tempData[0].Deaths
             }
             cell_6={
               selectTypeStore.selectCountry === "World"
@@ -108,14 +110,6 @@ const MapRow = () => {
                   )
             }
           />
-          {console.log(
-            tempData.total_active_cases,
-            tempData.total_cases -
-              tempData.total_recovered -
-              tempData.total_deaths -
-              tempData.total_new_cases_today -
-              tempData.total_new_deaths_today
-          )}
           <Table
             header_1="Recovered"
             header_2="24 Hours"
