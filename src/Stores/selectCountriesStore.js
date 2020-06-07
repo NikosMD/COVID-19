@@ -2,7 +2,7 @@ import { observable, action } from "mobx";
 
 export class SelectCountriesStore {
   @observable.ref
-  selectCountries = [];
+  selectCountries = ["Moldova", "Italy"];
 
   @observable.ref
   selectDistrictsMoldova = [];

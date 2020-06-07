@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 import moment from "moment";
 
-let dataAgo = new Date
+let dataAgo = new Date();
 
 dataAgo.setMonth(dataAgo.getMonth()-1)
 
@@ -9,7 +9,7 @@ export class SelectDateStore {
   @observable
   from = dataAgo;
   @observable
-  to = new Date;
+  to = new Date();
 
   @action
   showFromMonth() {

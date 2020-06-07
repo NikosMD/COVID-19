@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Grid, Button } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import LineChart from "components/LineChart";
 import DropdownExampleMultipleSelection from "components/DropdownMutiply";
 import DropdownType from "components/Dropdown";
@@ -10,10 +10,8 @@ import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 import "./ChartRow.scss";
 
-
 const ChartRow = () => {
   const options = [];
-  const defaultOptions = ["Moldova", "Italy"];
 
   const {
     selectTypeStore,
@@ -23,9 +21,8 @@ const ChartRow = () => {
   } = useStores();
 
   useEffect(() => {
-    selectCountriesStore.addDefaultSelections(defaultOptions);
     onValueChange()
-  }, [selectDateStore.from,selectDateStore.to]);
+  }, [selectDateStore.from,selectDateStore.to, selectTypeStore.selectType]);
   
   const handleValueChange = (value) => {
     selectTypeStore.handleChange(value);
@@ -53,7 +50,6 @@ const ChartRow = () => {
   }
 
   const onValueChange = () => {
-    console.log("Cub")
     if (!!selectDateStore.from && !!selectDateStore.to) {
       fetchDataStore.fetchData_allDay({
         countrys: selectCountriesStore.selectCountries,
@@ -63,7 +59,6 @@ const ChartRow = () => {
       });
     }
   };
-
   
   return (
     <Grid.Row columns={2}>

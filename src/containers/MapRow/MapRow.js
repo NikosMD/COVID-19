@@ -21,8 +21,6 @@ const MapRow = () => {
     if (selectTypeStore.selectCountry === "World") {
       setTempData(fetchDataStore.dataOfGlobal);
     } else {
-      if (fetchDataStore.isLoaded && fetchDataStore.isLoadedGlobal) {
-      }
       setTempData(fetchDataStore.dataOfCountry_Yesterday);
     }
   }, [
@@ -51,6 +49,9 @@ const MapRow = () => {
         to: yesterday,
       });
     };
+    console.log( selectTypeStore.selectCountry === "World"
+    ? tempData.total_cases
+    : tempData[1] && tempData[1].Confirmed)
 
     return (
       <Grid.Row columns={2}>

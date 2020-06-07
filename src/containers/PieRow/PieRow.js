@@ -2,17 +2,13 @@ import React, { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import PieChart from "components/PieChart";
 import DropdownExampleMultipleSelection from "components/DropdownMutiply";
-import DropdownType from "components/Dropdown";
-import { TYPE_OPTIONS } from "constants/constans";
 import { useStores } from "Hooks/useHooks";
 import { observer } from "mobx-react";
 
 const PieRow = () => {
   const {
-    selectTypeStore,
     selectCountriesStore,
     fetchDataStore,
-    selectDateStore,
   } = useStores();
 
   const options = [];

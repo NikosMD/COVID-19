@@ -9,6 +9,7 @@ const MenuApp = () => (
     <Container>
       <Menu.Item>
         <img
+          alt=""
           src="/img/virus-solid.svg"
         />
       </Menu.Item>
